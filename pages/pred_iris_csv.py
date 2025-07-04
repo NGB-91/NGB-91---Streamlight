@@ -3,11 +3,11 @@ import pandas as pd
 from utils import predict_flores
 
 # Título de la aplicación
-st.title('Predicción de flores desde un archivo CSV')
-st.image('iris.jpg', caption='Imagen de iris', use_column_width=True)
+st.title('Mide el pétalo y sépalo desde un CSV')
+st.image('floriris.jpg', caption='Imagen de iris', use_column_width=True)
 
 # Widget para cargar un archivo CSV
-uploaded_file = st.file_uploader("Selecciona un archivo CSV", type=['csv'])
+uploaded_file = st.file_uploader("Selecciona el CSV", type=['csv'])
 
 # Si se carga un archivo
 if uploaded_file is not None:
@@ -15,7 +15,7 @@ if uploaded_file is not None:
     df = pd.read_csv(uploaded_file)
 
     # Mostrar una vista previa de los primeros registros del DataFrame
-    st.write('**Vista Previa del DataFrame:**')
+    st.write('**DataFrame:**')
     st.write(df.head())
 
     # Sección para realizar la predicción
@@ -31,16 +31,17 @@ if uploaded_file is not None:
 
         # Mostrar los resultados de la predicción
         st.success('Éxito al realizar la predicción!')
-        st.write('Los resultados de la predicción son:')
+        st.write('Los resultados son:')
         st.write(predicted_values)
 
         # Convertir los resultados de la predicción a un DataFrame
         predictions_df = pd.DataFrame(predicted_values, columns=['Predicciones'])
 
         # Widget para descargar el archivo CSV de las predicciones
-        st.subheader('Descargar Predicciones como CSV')
+        st.subheader('Descargar como CSV')
         st.download_button(label='Descargar CSV',
             data=predictions_df.to_csv(index=False),
             file_name='predicciones.csv',
             mime='text/csv')
+
 
